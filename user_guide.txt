@@ -1,0 +1,14 @@
+User Guide - Pokémon Legendary Prediction App
+
+1. Open PyCharm and load the pokemon-ml-app project directory.
+2. Make sure all dependencies are installed (see requirements.txt).
+3. Place the trained model file 'legendary_model.pkl' inside the 'models' directory.
+4. Run 'main.py'.
+5. Enter the Pokémon's stats when prompted.
+6. The app will predict whether the Pokémon is Legendary or Not Legendary.
+
+Requirements:
+- Python 3.x
+- scikit-learn
+- pandas
+- joblib

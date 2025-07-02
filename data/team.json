@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Charizard",
+    "stats": [
+      78,
+      104,
+      78,
+      159,
+      115,
+      100
+    ],
+    "type1": "fire",
+    "type2": "flying"
+  }
+]
