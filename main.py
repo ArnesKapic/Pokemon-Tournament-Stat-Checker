@@ -2,22 +2,23 @@
 from app.interface import banner, competitive_pokemon_preference, user_menu, stats_manual, get_stats_from_name
 
 # For ML model involving loading the predictions
-from app.predictor import load_model, predict
+from app.predictor import model_load, model_predict
 
 # For team creation and management functions
 from app.team_manager import team_manager
 import sys  # For closing the program
 from colorama import Fore  # For themed CLI
+from app.data_handler import EMOJI_TYPE  # For Pokémon type
 
 # Constant for ML model
-MODEL_PATH = "models/legendary_model.pkl"
+MODEL_PATH = "models/pokemon_model.pkl"
 
 # Application Core
 def main():
     banner()
     competitive_pokemon_preference()
 
-    model = load_model(MODEL_PATH)
+    model = model_load(MODEL_PATH)
     if model is None:
         sys.exit(1)
 
@@ -28,8 +29,8 @@ def main():
         if choice == "1":
             print(f"{Fore.CYAN}Enter stats manually:")
             stats = stats_manual()
-            result = predict(model, stats)
-            label = f"{Fore.RED}\u2728 Legendary!" if result == 1 else f"{Fore.GREEN}Not Legendary."
+            result = model_predict(model, stats)
+            label = f"{Fore.RED}\u2728 Legendary!" if result == 1 else f"{Fore.LIGHTGREEN_EX}Not Legendary."
             print(f"Prediction: {label}")
 
         # Entering a Pokémon name to auto-fetch stats from dataset and predict Legendary status
@@ -37,14 +38,13 @@ def main():
             name = input("Enter Pokémon name: ").strip()
             stats, type1, type2 = get_stats_from_name(name)
             if stats:
-                result = predict(model, stats)
+                result = model_predict(model, stats)
                 emoji1 = ""
                 emoji2 = ""
-                from app.data_handler import TYPE_EMOJI  # optional lazy import
-                if type1: emoji1 = TYPE_EMOJI.get(type1, '')
-                if type2: emoji2 = TYPE_EMOJI.get(type2, '')
+                if type1: emoji1 = EMOJI_TYPE.get(type1, '')
+                if type2: emoji2 = EMOJI_TYPE.get(type2, '')
                 type_str = f"{emoji1}/{emoji2}" if emoji1 and emoji2 else f"{emoji1}{emoji2}"
-                label = f"{Fore.MAGENTA}\u2728 Legendary!" if result == 1 else f"{Fore.GREEN}Not Legendary."
+                label = f"{Fore.MAGENTA}\u2728 Legendary!" if result == 1 else f"{Fore.LIGHTGREEN_EX}Not Legendary."
                 print(f"{name} {type_str}: {label}")
 
         # Open the tournament team manager (add/view/classify/clear team)

@@ -2,22 +2,22 @@ import os  # For checking file
 import json  # For saving and loading team data
 from colorama import Fore, Style  # For nicely themed CLI
 from app.interface import stats_manual, get_stats_from_name
-from app.data_handler import TYPE_EMOJI  # For Pokémon stats and icon types
-from app.predictor import predict  # For predicting legendary status
+from app.data_handler import EMOJI_TYPE  # For Pokémon stats and icon types
+from app.predictor import model_predict  # For predicting legendary status
 
 # Constant for JSON file
-TEAM_FILE = "data/team.json"
+POKEMON_TEAM_FILE = "data/team.json"
 
 # Loads Pokémon team to file
 def team_load():
-    if os.path.exists(TEAM_FILE):
-        with open(TEAM_FILE, "r") as f:
+    if os.path.exists(POKEMON_TEAM_FILE):
+        with open(POKEMON_TEAM_FILE, "r") as f:
             return json.load(f)
     return []
 
 # Saves Pokémon team to file
 def team_save(team):
-    with open(TEAM_FILE, "w") as f:
+    with open(POKEMON_TEAM_FILE, "w") as f:
         json.dump(team, f, indent=2)
 
 # Manages users Pokémon team
@@ -61,8 +61,8 @@ def team_manager(model):
             else:
                 print(f"{Fore.LIGHTCYAN_EX}Current Team:")
                 for i, member in enumerate(team, 1):
-                    emoji1 = TYPE_EMOJI.get(member.get("type1"), "")
-                    emoji2 = TYPE_EMOJI.get(member.get("type2"), "")
+                    emoji1 = EMOJI_TYPE.get(member.get("type1"), "")
+                    emoji2 = EMOJI_TYPE.get(member.get("type2"), "")
                     type_str = f"{emoji1}/{emoji2}" if emoji1 and emoji2 else f"{emoji1}{emoji2}"
                     print(f"  {i}. {member['name']} {type_str} - Stats: {member['stats']}")
 
@@ -72,9 +72,9 @@ def team_manager(model):
                 print(f"{Fore.LIGHTYELLOW_EX}No team members to classify.")
             else:
                 for member in team:
-                    label = predict(model, member['stats'])
-                    emoji1 = TYPE_EMOJI.get(member.get("type1"), "")
-                    emoji2 = TYPE_EMOJI.get(member.get("type2"), "")
+                    label = model_predict(model, member['stats'])
+                    emoji1 = EMOJI_TYPE.get(member.get("type1"), "")
+                    emoji2 = EMOJI_TYPE.get(member.get("type2"), "")
                     type_str = f"{emoji1}/{emoji2}" if emoji1 and emoji2 else f"{emoji1}{emoji2}"
                     result = "✨ Legendary" if label == 1 else "Not Legendary"
                     print(f"{member['name']} {type_str}: {result}")

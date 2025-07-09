@@ -1,16 +1,16 @@
 from colorama import Fore, Style  # For nicely themed CLI
 import random  # For suggesting Pokemon
-from app.data_handler import stats_dict, TYPE_EMOJI  # For Pokémon stats and icon types
+from app.data_handler import stats_dict, EMOJI_TYPE  # For Pokémon stats and icon types
 
 # Displays the banner
 def banner():
     p_banner = f"""
 {Fore.LIGHTBLUE_EX}{Style.BRIGHT}
-===================================================
-=       Pokémon Stat Validation Checker           =
-=               Is it Legendary?                  =
-=   Tip: You can type Pokémon names or stats      =    
-===================================================
++=================================================+
+|       Pokémon Stat Validation Checker           |
+|               Is it Legendary?                  |
+|   Tip: You can type Pokémon names or stats      |  
++=================================================+
 {Style.RESET_ALL}
 """
     print(p_banner)
@@ -24,8 +24,8 @@ def competitive_pokemon_preference():
         poke = stats_dict.get(name, {})
         type1 = poke.get("type1", "")
         type2 = poke.get("type2", "")
-        emoji1 = TYPE_EMOJI.get(type1.lower(), "") if isinstance(type1, str) else ""
-        emoji2 = TYPE_EMOJI.get(type2.lower(), "") if isinstance(type2, str) else ""
+        emoji1 = EMOJI_TYPE.get(type1.lower(), "") if isinstance(type1, str) else ""
+        emoji2 = EMOJI_TYPE.get(type2.lower(), "") if isinstance(type2, str) else ""
         types = f"{emoji1}/{emoji2}" if emoji1 and emoji2 else f"{emoji1 or emoji2}"
         print(f"  - {name} {types}")
     print()

@@ -76,5 +76,29 @@
     ],
     "type1": "dragon",
     "type2": "ground"
+  },
+  {
+    "name": "Dragonite",
+    "stats": [
+      91,
+      134,
+      95,
+      100,
+      100,
+      80
+    ],
+    "type1": "dragon",
+    "type2": "flying"
+  },
+  {
+    "name": "1",
+    "stats": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
   }
 ]

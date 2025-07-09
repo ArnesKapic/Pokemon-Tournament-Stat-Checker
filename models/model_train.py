@@ -4,21 +4,21 @@ from sklearn.model_selection import train_test_split  # For splitting data
 import joblib  # For saving trained model
 
 # Load dataset
-df = pd.read_csv("../data/pokemon.csv")
+data_path = pd.read_csv("../data/pokemon.csv")
 
 # Clean and prepare data
-features = ['hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed']
+stats = ['hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed']
 target = 'is_legendary'
-df_clean = df[features + [target]].dropna()
+clean_data_path = data_path[stats + [target]].dropna()
 
-X = df_clean[features]
-y = df_clean[target]
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X = clean_data_path[stats]
+Y = clean_data_path[target]
+train_X, test_X, train_Y, test_Y = train_test_split(X, Y, test_size=0.2, random_state=42)
 
 # Train model
 model = RandomForestClassifier(n_estimators=100, random_state=42)
-model.fit(X_train, y_train)
+model.fit(train_X, train_Y)
 
 # Save model
-joblib.dump(model, "legendary_model.pkl")
+joblib.dump(model, "pokemon_model.pkl")
 print("Model has been retrained and saved!")

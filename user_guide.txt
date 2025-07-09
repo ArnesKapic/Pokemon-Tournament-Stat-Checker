@@ -2,8 +2,10 @@
                    - Pokémon Stat Validation Checker -
 
 1. Go to PyCharm and open the pokemon-ml-app project directory
-2. Have all dependencies installed (see requirements.txt)
-3. Place the trained model 'legendary_model.pkl' file inside the 'models' directory
+2. Make sure you are using 3.11+ interpreter at least. Newer versions should work also.
+3. Have all dependencies installed (see requirements.txt)
+4. Place the trained model 'pokemon_model.pkl' file inside the 'models' directory
 4. Run the program 'main.py'
 5. Enter the Pokémon's stats when prompted in whichever way you like
 6. The program will predict whether the Pokémon is legendary or not!
+7. Enjoy!
