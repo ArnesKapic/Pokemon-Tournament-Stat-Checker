@@ -1,10 +1,10 @@
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-import joblib
+import pandas as pd  # For loading CSV
+from sklearn.ensemble import RandomForestClassifier  # For ML model
+from sklearn.model_selection import train_test_split  # For splitting data
+import joblib  # For saving trained model
 
 # Load dataset
-df = pd.read_csv("data/pokemon.csv")
+df = pd.read_csv("../data/pokemon.csv")
 
 # Clean and prepare data
 features = ['hp', 'attack', 'defense', 'sp_attack', 'sp_defense', 'speed']
@@ -20,5 +20,5 @@ model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
 # Save model
-joblib.dump(model, "models/legendary_model.pkl")
-print("✅ Model retrained and saved using your local scikit-learn version.")
+joblib.dump(model, "legendary_model.pkl")
+print("Model has been retrained and saved!")
